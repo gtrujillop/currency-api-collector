@@ -1,0 +1,8 @@
+evelopment:
+  clients:
+    default:
+      database: sports_data
+      hosts:
+        - localhost:27017
+      options:
+        server_selection_timeout: 1
