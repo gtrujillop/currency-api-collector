@@ -1,8 +1,6 @@
-evelopment:
+development:
   clients:
     default:
-      database: sports_data
+      database: currency_data
       hosts:
         - localhost:27017
-      options:
-        server_selection_timeout: 1

@@ -5,10 +5,17 @@ require_relative '../config/boot'
 require_relative '../lib/service_runner'
 
 query = {
-  endpoint: 'teams',
+  endpoint: 'currencies',
   params: {
-    search: 'Atletico Nacional'
+    currency: ['USD', 'COP']
   }
 }
 
-ServiceRunner.new(Clients::Team.new(params: query)).run
+# query = {
+#   endpoint: 'latest',
+#   params: {
+#     base_currency: 'USD'
+#   }
+# }
+
+ServiceRunner.new(Clients::Currency.new(params: query)).run

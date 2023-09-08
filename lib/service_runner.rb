@@ -6,6 +6,6 @@ class ServiceRunner
   end
 
   def run
-    @service.get
+    @service.get_currencies
   end
 end

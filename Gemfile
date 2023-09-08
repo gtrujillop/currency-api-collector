@@ -2,16 +2,17 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'mongoid', '~> 7.0.5'
+gem 'mongoid', '~> 8.1'
 gem "foreman"
 gem "dotenv"
-gem "rest-client"
+gem 'logger'
 gem "grape"
 gem "grape-entity"
 gem "grape-swagger"
 gem "puma"
 gem "rack"
 gem "rack-cors"
+gem "rest-client"
 gem "securerandom"
 gem "sidekiq-scheduler", "~> 5.0", ">= 5.0.2"
 gem "yaml"
