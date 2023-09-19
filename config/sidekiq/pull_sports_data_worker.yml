@@ -1,4 +1,0 @@
-:scheduler:
-  :schedule:
-    pull_sports_data_worker:
-      cron: ""

@@ -1,0 +1,8 @@
+:scheduler:
+  :schedule:
+    # pull_currencies_data_worker:
+    #   cron: "0 0 0 1 * *"
+    #   class: Workers::PullCurrenciesDataWorker
+    pull_exchange_rates_worker:
+      cron: "0 /10 * * * *"
+      class: Workers::PullExchangeRatesWorker

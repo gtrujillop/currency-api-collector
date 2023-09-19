@@ -7,5 +7,6 @@ class ServiceRunner
 
   def run
     @service.get_currencies
+    @service.get_latest_conversions(base_currency: 'USD')
   end
 end

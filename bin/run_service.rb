@@ -18,4 +18,4 @@ query = {
 #   }
 # }
 
-ServiceRunner.new(Clients::Currency.new(params: query)).run
+ServiceRunner.new(Clients::Currency.new).run

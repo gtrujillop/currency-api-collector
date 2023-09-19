@@ -2,14 +2,13 @@
 
 module Clients
   class Currency
-    attr_reader :params, :logger
+    attr_reader :logger
 
     URL = 'https://api.currencyapi.com/v3'
     API_KEY = ENV['CURRENCY_API_KEY']
     AVAILABLE_ENDPOINTS = %i[currencies latest historical convert]
 
-    def initialize(params: {})
-      @params = params
+    def initialize
       @logger = Logger.new(STDOUT)
     end
 
@@ -37,9 +36,14 @@ module Clients
       case response.code
       when 200
         parsed_body['data'].each do |_, currency_data|
-          currency = ::Currency.new(currency_data)
-          saved = currency.save
-          logger.error("unable to save currency #{currency.code} due to: #{currency.errors.full_messages}") unless saved
+          conversion = ::Conversion.find_or_create_by(
+            currency_id: currency.id,
+            value: currency_data['value'],
+            code: currency_data['code'],
+            datetime_of_update: parsed_body.dig('meta', 'last_updated_at')
+          )
+          saved = conversion.persisted?
+          logger.error("unable to save conversion #{currency.code} due to: #{conversion.errors.full_messages}") unless saved
         end
       else
         raise "errors requesting the currencies API #{parsed_body.inspect}"
@@ -49,15 +53,10 @@ module Clients
     private
 
     def request(endpoint:, querystring: nil)
-      validate_call!
       RestClient.get(
         "#{URL}/#{endpoint}?apikey=#{API_KEY}",
         params: querystring
       )
-    end
-
-    def validate_call!
-      raise StandardError.new('Invalid endpoint') unless AVAILABLE_ENDPOINTS.include?(params[:endpoint].to_sym)
     end
   end
 end
